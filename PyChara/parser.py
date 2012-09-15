@@ -32,7 +32,7 @@ class Parser(object):
             tree = parse(source_file.read())
 
         for visitor in self._visitor_list:
-            visitor.visit(tree)
+            visitor.visit(tree,[])
 
 
     def add_visitor(self, visitor):

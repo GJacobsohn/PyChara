@@ -14,7 +14,23 @@ class TestMcCabeMetric(unittest.TestCase):
 
     def test_simple_file(self):
         self.p.parse_files("test_files/mccabe.py")
-        self.assertEqual(self._metric.compute(),9)
+        exp_result= dict (
+            a=dict(McCabe=8),
+            testClass=dict(
+                ABC=dict(
+                    McCabe=5,
+                    av = dict (
+                        ab = dict(McCabe=1)
+                    )
+                ),
+                feelbarometer=dict(
+                    McCabe=3,
+                    bvc = dict (McCabe=1)
+                )
+            ),
+            classy_function=dict(McCabe=2)
+        )
+        self.assertDictEqual(self._metric._results,exp_result)
 
 
 if __name__ == '__main__':
