@@ -6,12 +6,22 @@ import ast
 from ast import iter_fields
 
 class MetricVisitor():
-    _results = dict()
 
-
+    def get_results(self):
+        if getattr(self,'_results',None) is None:
+            self._results = dict()
+        return self._results
 
     def save_value(self,value,stack):
-        results = self._results
+        """
+        Saves the Result from an run.
+
+        :param value:
+        :ptype value: int
+
+
+        """
+        results = self.get_results()
         for node in stack:
             if results.has_key(node.name):
                 results = results[node.name]
@@ -38,12 +48,12 @@ class FunctionMetricVisitor(MetricVisitor):
         """Visit a node."""
         self.visit(node,[])
 
-    def empty_visit(self,node,stack):
-        return
+    def generic_visit(self,node,stack):
+        pass
 
     def _visit_node_calc(self,node,stack):
         method = 'visit_' + node.__class__.__name__
-        visitor = getattr(self, method, self.empty_visit)
+        visitor = getattr(self, method, self.generic_visit)
         visitor(node,stack)
 
     def visit(self, node, stack):

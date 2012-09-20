@@ -1,7 +1,7 @@
 __author__ = 'gabriel'
 
 import unittest
-from mccabemetric import McCabeMetric
+from pychara.metrics.mccabemetric import McCabeMetric
 from parser import Parser
 
 class TestMcCabeMetric(unittest.TestCase):
